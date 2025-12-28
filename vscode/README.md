@@ -1,0 +1,37 @@
+- Login using your github profile 
+- Plugins 
+	- atom-dark-theme
+	- dracula-theme
+	- auto-doc-string
+	- better-comments
+	- dendron
+	- foam
+	- excalidraw
+	- isort - python 
+	- prettier - python
+	- pylance 
+	- python
+	- python-debuger 
+	- python-environments
+	- ruff
+	- javascript-es6-code-snippets
+	- javscript-and-typescript-nightly
+	- tailwind-css-intellisense 
+	- tailwind-fold
+	- data-wrangler
+	- rainbow-csv
+	- rest-client 
+	- devcontainers
+	- docker-dx
+	- jupyter
+	- jupyter-cell-tags
+	- jupyter-keymap
+	- jupyter-notebook-renders
+	- jupyter-slide-show
+	- markdown-all-in-one
+	- claude  
+	- cline
+	- roocode 
+	- gemini-cli-companion
+	- github-copilot-chat
+	- windsurf

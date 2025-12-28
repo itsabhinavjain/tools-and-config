@@ -4,6 +4,7 @@
 - iTerm
   - homebrew
   - ohmyzsh
+  - tmux
 - Raycast
 - Obsidian 
 - Excalidraw

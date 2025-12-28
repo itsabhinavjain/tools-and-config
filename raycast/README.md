@@ -1,0 +1,10 @@
+- Keep it minimal (Remove apps and commands that you dont typically use)
+- Extensions 
+	- Obsidian 
+	- Google Workspace
+- Quicklinks (Use this heavily)
+- Snippets 
+	- Date, Address, Gmeet etc 
+- Window Management 
+- Shortcuts 
+	- Window Management 
