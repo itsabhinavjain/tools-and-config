@@ -1,9 +1,8 @@
-# Tools configurations
-## List of tools 
+# Tool configurations
+
+## Common tools 
 - iTerm
-  - neovim
-  - gemini-cli
-  - claude-code-cli
+  - homebrew
 - Raycast
 - Obsidian 
 - Excalidraw
@@ -11,3 +10,9 @@
   - VS Code
   - Sublime Text (Quick notes) 
   - Antigravity
+
+## Terminal tools 
+- zsh
+- neovim
+- gemini-cli
+- claude-code-cli
