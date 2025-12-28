@@ -1,4 +1,9 @@
-- Use for making quick edits to the markdown files from the terminal 
+## Use case 
+- Use for making quick edits to the markdown files from the terminal - Setup for Markdown editting (along with wikilinks)
+- Search : Folders, Files, Files (containing text) 
+- Language servers
+
+## Customisation 
 - Plugins 
 	- Telescope - Use to search files and folders 
 
