@@ -314,11 +314,11 @@ compdef _files ff
 
 
 # Function to fuzzy search and preview file contents with highlighted matches
-# Usage: fff <root_dir> <search_text>
+# Usage: fg <root_dir> <search_text>
 fg() {
   # Ensure the root directory and search text are provided
   if [[ -z "$1" ]] || [[ -z "$2" ]]; then
-    echo "Usage: fff <root_dir> <search_text>"
+    echo "Usage: fg <root_dir> <search_text>"
     return 1
   fi
 
@@ -344,7 +344,7 @@ fg() {
     fzf --preview "grep --color=always -i '$search_text' {} | sed 30q"
   )" || return
 }
-# Enable autocompletion for the fff function (only for directory paths)
+# Enable autocompletion for the fg function (only for directory paths)
 compdef _files fg
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
