@@ -17,11 +17,28 @@
 		- NvChad 
 		- AstroNvim 
 
+- Later have custom configs if needed 
+
 ## Keybindings
-- General or Custom
+General 
+```
+:checkhealth nvim-treesitter              # Checking the health
+:Lazy                                     # Plugin Manager 
+:Mason                                    # LSP Management 
+
+: ff                                      # Checking the health
+: fg                                      # Grep 
+: e                                       # Explorer
+
+```
+
+Custom 
+```
+```
 
 ## Notes 
 - lua is better way to manage configurations rather than vimscript 
+- Various distros have their own way of how they manage configs and plugins etc (these are essentially a directory in `~/.config/nvim/lua` and started in `~/.config/nvim/init.lua`)
 - Don't start from scratch. Takes a lot of time. Start with one of the preconfigured one
 
 Complete Cleanup 
@@ -84,16 +101,4 @@ rm -rf ~/.cache/nvim
 git clone --depth 1 https://github.com/AstroNvim/template ~/.config/nvim
 rm -rf ~/.config/nvim/.git
 nvim
-```
-
-## Common Commands 
-```
-:checkhealth nvim-treesitter              # Checking the health
-:Lazy                                     # Plugin Manager 
-:Mason                                    # LSP Management 
-
-: ff                                      # Checking the health
-: fg                                      # Grep 
-: e                                       # Explorer
-
 ```

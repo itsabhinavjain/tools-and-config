@@ -219,14 +219,15 @@ alias debugagent='uvx --refresh --from "langgraph-cli[inmem]" --with-editable . 
 ## Common shortcuts
 alias ll="ls -ahl"
 alias ls="ls -1"
-alias kk="glow ${PRODUCTIVITY_SCRIPTS_DIR}/00-developer-productivity/00_common_commands.md" # Showcase the most commonly used commands
+
 
 # rmd () {
 #   pandoc $1 | lynx -stdin
 #   # To view markdown files on the terminal 
 # }
-# alias kk="rmd ${PRODUCTIVITY_SCRIPTS_DIR}/00-developer-productivity/00_common_commands.md" # Showcase the most commonly used commands
 
+alias kk="glow ${PRODUCTIVITY_SCRIPTS_DIR}/00-developer-productivity/00_common_commands.md" # Showcase the most commonly used commands
+# alias kk="rmd ${PRODUCTIVITY_SCRIPTS_DIR}/00-developer-productivity/00_common_commands.md" # Showcase the most commonly used commands
 alias kkk="subl ${PRODUCTIVITY_SCRIPTS_DIR}/00-developer-productivity/00_common_commands.md" # Edit the most commonly used commands
 
 # # Function to call custom productivity scripts

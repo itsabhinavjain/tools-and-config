@@ -12,7 +12,8 @@ Common options
 - Solarized 
 - Atom One Dark 
 
-## Fonts and Icons
+### Color schemes
+### Fonts and Icons
 About fonts
 - Font families
 - Monospace (or variable space)
@@ -28,7 +29,7 @@ Repository
 
 My choice
 - For progamming 
-	- Jetbrains Mono
+	- Jetbrains Mono (Primary) 
 	- FiraCode 
 	- Menlo (VS Code Default)
 - For documents 
