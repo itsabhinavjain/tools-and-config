@@ -173,9 +173,9 @@ fi
 
 
 ##### USER PREFERENCES #####
-export WORKSPACE_DIR="/Users/abhinavjain/Documents/0-Workspaces"
-export PRODUCTIVITY_SCRIPTS_DIR="/Users/abhinavjain/Documents/1-Productivity-Scripts"
-export SECRETS_DIR="/Users/abhinavjain/Documents/0-Workspaces/env_and_dotfiles_and_secrets"
+export WORKSPACE_DIR="/Users/abhinavjain/Documents/02-Workspace-Common"
+export PRODUCTIVITY_SCRIPTS_DIR="/Users/abhinavjain/Documents/21-Productivity-Scripts"
+export SECRETS_DIR="/Users/abhinavjain/Documents/22-Env-and-Dotfiles-and-Secrets"
 export LOCAL_SECRETS_FILE=".env.local"
 
 export CURRENT_TIMESTAMP=$(date +"%Y-%m-%d_%H-%M") # Generate timestamp
@@ -196,11 +196,14 @@ alias debugagent='uvx --refresh --from "langgraph-cli[inmem]" --with-editable . 
 alias ll="ls -ahl"
 alias ls="ls -1"
 
-alias kk="glow ${PRODUCTIVITY_SCRIPTS_DIR}/00_common_commands.md" # Showcase the most commonly used commands
-alias kkk="subl ${PRODUCTIVITY_SCRIPTS_DIR}/00_common_commands.md" # Edit the most commonly used commands
+alias kk="nvim ${PRODUCTIVITY_SCRIPTS_DIR}/00_common_commands.md" # Showcase the most commonly used commands
+# alias kkk="subl ${PRODUCTIVITY_SCRIPTS_DIR}/00_common_commands.md" # Edit the most commonly used commands
 
-# # Function to call custom productivity scripts
-# mm 
+
+# Function to call custom productivity scripts
+# Usage : 
+#   mm                 -> cd to the scripts directory, run the selected script and come back. 
+
 mm() {
   if [[ -z "$PRODUCTIVITY_SCRIPTS_DIR" ]]; then
     echo "PRODUCTIVITY_SCRIPTS_DIR environment variable is not set."
@@ -218,8 +221,8 @@ mm() {
   script=$(find . -type f \( -name "*.sh" -o -name "*.zsh" \) | fzf)
   
   if [[ -z "$script" ]]; then
-    cd - 
     echo "No script selected."
+    cd - 
     return 1
   fi
 
@@ -243,84 +246,144 @@ mm() {
 }
 
 
-# # Function to fuzzy search and preview directories
-# dd
-# dd /path/to/search
+# Fuzzy search directories and cd into selection
+# Usage:
+#   dd                 -> search from . with unlimited depth
+#   dd /path           -> search from /path with unlimited depth
+#   dd /path 3         -> search from /path up to depth 3
+
 dd() {
-  local root_dir="${1:-.}"  # Use the first argument if provided, otherwise default to the current directory
-  cd "$(
-    find "$root_dir" -type d \( \
-      -name "node_modules" \
-      -o -name "venv" \
-      -o -name ".git" \
-      -o -name ".github" \
-      -o -name ".vscode" \
-      -o -name "__pycache__" \
+  local root_dir="${1:-.}"
+  local max_depth="$2"
+
+  local find_cmd=(find "$root_dir")
+  [[ -n "$max_depth" && "$max_depth" =~ '^[0-9]+$' ]] && \
+    find_cmd+=(-maxdepth "$max_depth")
+
+  local result key dir
+
+  result="$(
+    "${find_cmd[@]}" -type d \( \
+      -name node_modules \
+      -o -name venv \
+      -o -name .git \
+      -o -name .github \
+      -o -name .vscode \
+      -o -name __pycache__ \
     \) -prune -o -type d -print | \
-    fzf --preview "tree -C {}"
+    fzf \
+      --expect=enter \
+      --bind esc:abort \
+      --preview 'tree -C {} | sed 50q'
   )" || return
+
+  key="${result%%$'\n'*}"
+  dir="${result#*$'\n'}"
+
+  [[ "$key" != "enter" || -z "$dir" ]] && return
+
+  unsetopt localoptions autocd 2>/dev/null
+  builtin cd -- "$dir"
 }
-# Enable autocompletion for the dd function (only for directory paths)
 compdef _files dd
 
 
-# # Function to fuzzy search and preview files
-# ff
-# ff /path/to/search
+# Fuzzy search files by name and open on Enter
+# Usage:
+#   ff                 -> search from . with unlimited depth
+#   ff /path           -> search from /path with unlimited depth
+#   ff /path 3         -> search from /path up to depth 3
+
 ff() {
-  local root_dir="${1:-.}"  # Use the first argument if provided, otherwise default to the current directory
-  open "$(
-    find "$root_dir" \( \
+  local root_dir="${1:-.}"
+  local max_depth="$2"
+
+  local find_cmd=(find "$root_dir")
+  [[ -n "$max_depth" && "$max_depth" =~ '^[0-9]+$' ]] && \
+    find_cmd+=(-maxdepth "$max_depth")
+
+  local result key file
+
+  result="$(
+    "${find_cmd[@]}" \( \
       -path "*/node_modules" -o -path "*/node_modules/*" \
       -o -path "*/venv" -o -path "*/venv/*" \
       -o -path "*/.git" -o -path "*/.git/*" \
       -o -path "*/.github" -o -path "*/.github/*" \
       -o -path "*/.vscode" -o -path "*/.vscode/*" \
       -o -path "*/__pycache__" -o -path "*/__pycache__/*" \
-    \) -prune -o -type f ! \( \
-      -name "*.log" \
-      -o -name "*.tmp" \
-      -o -name ".DS_Store" \
-    \) -print | \
-    fzf --preview "sed 30q {}"
+    \) -prune -o -type f -print | \
+    fzf \
+      --expect=enter \
+      --bind esc:abort \
+      --preview 'sed 30q {}'
   )" || return
+
+  key="${result%%$'\n'*}"
+  file="${result#*$'\n'}"
+
+  [[ "$key" != "enter" || -z "$file" ]] && return
+
+  unsetopt localoptions autocd 2>/dev/null
+  command open "$file"
 }
-# Enable autocompletion for the ff function (only for directory paths)
 compdef _files ff
 
 
-# Function to fuzzy search and preview file contents with highlighted matches
-# Usage: fg <root_dir> <search_text>
+# Fuzzy search files by CONTENT using ripgrep,
+# then fuzzy-filter filenames with fzf
+#
+# Usage:
+#   fg <search_text>
+#   fg <search_text> /path
+#   fg <search_text> /path 3
+
 fg() {
-  # Ensure the root directory and search text are provided
-  if [[ -z "$1" ]] || [[ -z "$2" ]]; then
-    echo "Usage: fg <root_dir> <search_text>"
+  [[ -z "$1" ]] && {
+    echo "Usage: fg <search_text> [root_dir] [max_depth]"
     return 1
-  fi
+  }
 
-  local root_dir="$1"
-  local search_text="$2"
+  local search_text="$1"
+  local root_dir="${2:-.}"
+  local max_depth="$3"
 
-  # Disable globbing temporarily
-  setopt localoptions noglob
+  local rg_cmd=(
+    rg
+    --files-with-matches
+    --ignore-case
+    --hidden
+    --glob '!.git/*'
+    --glob '!node_modules/*'
+    --glob '!venv/*'
+    --glob '!.github/*'
+    --glob '!.vscode/*'
+    --glob '!__pycache__/*'
+  )
 
-  # Use `grep` to search within files, excluding specified directories and files
-  open "$(
-    grep -ril \
-      --exclude-dir=node_modules \
-      --exclude-dir=venv \
-      --exclude-dir=.git \
-      --exclude-dir=.github \
-      --exclude-dir=.vscode \
-      --exclude-dir=__pycache__ \
-      --exclude=\*.log \
-      --exclude=\*.tmp \
-      --exclude=.DS_Store \
-      --ignore-case "$search_text" "$root_dir" | \
-    fzf --preview "grep --color=always -i '$search_text' {} | sed 30q"
+  [[ -n "$max_depth" && "$max_depth" =~ '^[0-9]+$' ]] && \
+    rg_cmd+=(--max-depth "$max_depth")
+
+  local result key file
+
+  result="$(
+    "${rg_cmd[@]}" -- "$search_text" "$root_dir" | \
+    fzf \
+      --expect=enter \
+      --bind esc:abort \
+      --preview "rg --color=always -n -i -- '$search_text' {} | sed 30q" \
+      --preview-window=right:60% \
+      --ansi
   )" || return
+
+  key="${result%%$'\n'*}"
+  file="${result#*$'\n'}"
+
+  [[ "$key" != "enter" || -z "$file" ]] && return
+
+  unsetopt localoptions autocd 2>/dev/null
+  command open "$file"
 }
-# Enable autocompletion for the fg function (only for directory paths)
 compdef _files fg
 
 

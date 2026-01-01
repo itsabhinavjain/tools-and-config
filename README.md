@@ -15,3 +15,13 @@ This is an opinionated list of tools that I use and I have gotten used to. This 
   - Sublime Text (Quick notes) 
   - Antigravity
   - Docker
+
+
+## What all to check while changing my system :-
+- Raycast 
+  - Shortcuts (quicklinks)
+  - Script directory
+- Zshrc 
+  - Various variables that mention the folder names and the file names
+- Indexes that define usage 
+  - Common-Commands.md
