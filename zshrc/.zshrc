@@ -112,6 +112,8 @@ export PATH="$PATH:/Applications/pgAdmin 4.app/Contents/SharedSupport"
 export PATH="$PATH:/opt/homebrew/opt/libpq/bin"
 export PATH="$PATH:/opt/homebrew/opt/sqlite/bin"
 export PATH="$PATH:/Users/abhinavjain/.local/bin"
+export PATH="/Users/abhinavjain/.antigravity/antigravity/bin:$PATH"
+export PATH="/Users/abhinavjain/.amp/bin:$PATH"
 
 ## History settings
 export HISTFILESIZE=10000
@@ -175,29 +177,80 @@ fi
 ##### USER PREFERENCES #####
 export WORKSPACE_DIR="/Users/abhinavjain/Documents/02-Workspace-Common"
 export PRODUCTIVITY_SCRIPTS_DIR="/Users/abhinavjain/Documents/21-Productivity-Scripts"
-export SECRETS_DIR="/Users/abhinavjain/Documents/22-Env-and-Dotfiles-and-Secrets"
+export LOCAL_SECRETS_DIR="/Users/abhinavjain/Documents/22-Environment-and-Secrets/local"
 export LOCAL_SECRETS_FILE=".env.local"
 
 export CURRENT_TIMESTAMP=$(date +"%Y-%m-%d_%H-%M") # Generate timestamp
 
 ## Aliases 
-## For common folders, commands, servers, shorcuts, scripts etc 
+### For common folders, commands, servers, shorcuts, scripts etc 
 
+alias debugagent='uvx --refresh --from "langgraph-cli[inmem]" --with-editable . --python 3.11 langgraph dev'
 alias ss="cd ${WORKSPACE_DIR}"
 alias nn="nvim ."
+alias ll="ls -ahl"
+alias ls="ls -ahl"
+alias kk="nvim ${PRODUCTIVITY_SCRIPTS_DIR}/00_common_commands.md" # Showcase the most commonly used commands
+
+### Common Functions 
+# - ee   : Manage import common local environment variables
+# - eee  : Check what all environment variables are set 
+# - mm   : Manage utility scripts
+# - ff   : Find file by name
+# - fff  : Find file by content 
+# - dd   : Find directory 
+
+# Function to manage the environment variables on my local terminal
+
 ee() {
-  source "${SECRETS_DIR}/${LOCAL_SECRETS_FILE}"
-  echo "LOCAL_SCRIPT_IMPORTED=$LOCAL_SCRIPT_IMPORTED"
+  if [[ -z "$LOCAL_SECRETS_DIR" ]]; then
+    echo "PRODUCTIVITY_SCRIPTS_DIR environment variable is not set."
+    return 1
+  fi
+  if [[ ! -d "$LOCAL_SECRETS_DIR" ]]; then
+    echo "$PRODUCTIVITY_SCRIPTS_DIR directory not found."
+    return 1
+  fi
+
+  # Change the directory to the PRODUCTIVITY_SCRIPTS_DIR folder. This is where all the scripts are run from. 
+  cd "$LOCAL_SECRETS_DIR" || { echo "Failed to change directory to $LOCAL_SECRETS_DIR"; return 1; }
+  
+  # Search for the various scripts `.sh` and `.zsh` scripts in the folder 
+  script=$(find . -type f \( -name "*.sh" -o -name "*.zsh" \) | fzf)
+  
+  if [[ -z "$script" ]]; then
+    echo "No script selected."
+    cd - 
+    return 1
+  fi
+
+  echo "Selected script: $script"
+
+  echo -n "Run $script? ([y]es/no): "
+  read confirm
+
+  case $confirm in
+    y|Y|yes|YES|"")
+      echo "Runnning : $script"
+
+      # Run in the current shell 
+      source ./"$script" 
+      
+      cd - 
+      ;;
+    *)
+      echo "Script execution aborted."
+      cd - 
+      ;;
+  esac
 }
 
-alias clam="sudo pmset disablesleep 1; sleep 5; sudo pmset disablesleep 0"
-alias debugagent='uvx --refresh --from "langgraph-cli[inmem]" --with-editable . --python 3.11 langgraph dev'
 
-alias ll="ls -ahl"
-alias ls="ls -1"
+# Function to view all the current environment variables
 
-alias kk="nvim ${PRODUCTIVITY_SCRIPTS_DIR}/00_common_commands.md" # Showcase the most commonly used commands
-# alias kkk="subl ${PRODUCTIVITY_SCRIPTS_DIR}/00_common_commands.md" # Edit the most commonly used commands
+eee() {
+  set | less
+}
 
 
 # Function to call custom productivity scripts
@@ -233,9 +286,12 @@ mm() {
 
   case $confirm in
     y|Y|yes|YES|"")
+      echo "Runnning : $script"
+
+      # Run in a child shell 
       chmod +x "$script"
-      echo "$script"
-      ./"$script"
+      ./"$script" 
+      
       cd - 
       ;;
     *)
@@ -437,11 +493,6 @@ autoload -Uz compinit
 compinit
 # End of Docker CLI completions
 
-# Added by Antigravity
-export PATH="/Users/abhinavjain/.antigravity/antigravity/bin:$PATH"
-
-# Amp CLI
-export PATH="/Users/abhinavjain/.amp/bin:$PATH"
-
 # Needed for Graphiti. See how to initiatise with a database name later in python 
 export DEFAULT_DATABASE=neo4j 
+
