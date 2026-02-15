@@ -114,6 +114,8 @@ export PATH="$PATH:/opt/homebrew/opt/sqlite/bin"
 export PATH="$PATH:/Users/abhinavjain/.local/bin"
 export PATH="/Users/abhinavjain/.antigravity/antigravity/bin:$PATH"
 export PATH="/Users/abhinavjain/.amp/bin:$PATH"
+export PATH="/Users/abhinavjain/.bun/bin:$PATH"
+
 
 ## History settings
 export HISTFILESIZE=10000
@@ -474,3 +476,15 @@ compinit
 # Needed for Graphiti. See how to initiatise with a database name later in python 
 export DEFAULT_DATABASE=neo4j 
 
+
+# bun completions
+[ -s "/Users/abhinavjain/.bun/_bun" ] && source "/Users/abhinavjain/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# nvm 
+export NVM_DIR="$HOME/.nvm"
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
