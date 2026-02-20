@@ -18,4 +18,14 @@
 
 ## Notes 
 - Installed `oh-my-zsh` 
-- 
+
+
+## Debugging 
+Add the following :- 
+Top : `zmodload zsh/zprof`
+Botton : `zprof`
+
+## Cacheing  
+- One time setups (Sometimes)
+- `ng completion script > ~/.zfunc/_ng`
+- `uv generate-shell-completion zsh > ~/.zfunc/_uv`

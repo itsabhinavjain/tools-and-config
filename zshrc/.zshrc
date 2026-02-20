@@ -436,21 +436,17 @@ case ":$PATH:" in
 esac
 # pnpm end
 
-# Adding for using GraphViz
-export CFLAGS="-I $(brew --prefix graphviz)/include"
+# Adding for using GraphViz (hardcoded path instead of brew --prefix graphviz)
+export CFLAGS="-I /opt/homebrew/include/graphviz"
 if [ -f "/Users/abhinavjain/.config/fabric/fabric-bootstrap.inc" ]; then 
     . "/Users/abhinavjain/.config/fabric/fabric-bootstrap.inc"; 
 fi
 
-# Golang environment variables
-export GOROOT=$(brew --prefix go)/libexec
+# Golang environment variables (hardcoded path instead of brew --prefix go)
+export GOROOT="/opt/homebrew/opt/go/libexec"
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$HOME/.local/bin:$PATH
 
-# Adding for uv and uvx 
-eval "$(uv generate-shell-completion zsh)"
-# uv: managing python and virtual environments 
-# uvx: runs a tool without installing it e.g. ruff, markitdown etc
 
 # # For using "pure" prompt https://github.com/sindresorhus/pure. This will overwrite the prompt settings from ohmyzsh
 # fpath+=("$(brew --prefix)/share/zsh/site-functions")
@@ -461,17 +457,16 @@ autoload -Uz compinit
 zstyle ':completion:*' menu select
 fpath+=~/.zfunc
 
-# Load Angular CLI autocompletion.
-source <(ng completion script)
-
 # AWS ClI related 
 export AWS_PAGER=""
 
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
 fpath=(/Users/abhinavjain/.docker/completions $fpath)
-autoload -Uz compinit
-compinit
+# compinit removed here — called once below after all fpath additions
 # End of Docker CLI completions
+
+# Single compinit call after all fpath modifications are complete
+autoload -Uz compinit && compinit
 
 # Needed for Graphiti. See how to initiatise with a database name later in python 
 export DEFAULT_DATABASE=neo4j 
@@ -486,5 +481,17 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # nvm 
 export NVM_DIR="$HOME/.nvm"
-  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+# Lazy load nvm — only loads when node, npm, nvm, or npx is first called
+nvm() { unset -f nvm node npm npx; [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"; nvm "$@"; }
+node() { unset -f nvm node npm npx; [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"; node "$@"; }
+npm() { unset -f nvm node npm npx; [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"; npm "$@"; }
+npx() { unset -f nvm node npm npx; [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"; npx "$@"; }
+
+# Completions for uv, ng etc.
+# Instead of the following : 
+# - eval "$(uv generate-shell-completion zsh)"
+# - source <(ng completion script)
+# Run the following once (cache): 
+# - ng completion script > ~/.zfunc/_ng
+# - uv generate-shell-completion zsh > ~/.zfunc/_uv
