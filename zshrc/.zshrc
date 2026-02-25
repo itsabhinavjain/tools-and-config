@@ -157,7 +157,7 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 
 
 ##### USER PREFERENCES #####
-export WORKSPACE_DIR="/Users/abhinavjain/Documents/02-Workspace-Common"
+export WORKSPACE_DIR="/Users/abhinavjain/Documents"
 export PRODUCTIVITY_SCRIPTS_DIR="/Users/abhinavjain/Documents/21-Productivity-Scripts"
 export LOCAL_SECRETS_DIR="/Users/abhinavjain/Documents/22-Environment-and-Secrets/local"
 
