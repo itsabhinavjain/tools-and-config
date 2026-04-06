@@ -1,3 +1,4 @@
+## Notes 
 - Keep it minimal (Remove apps and commands that you dont typically use)
 - Extensions 
 	- Obsidian 
@@ -11,7 +12,7 @@
 	- Specific Snippets 
 
 
-## What to 
+## What to export 
 - Export Snippets 
 - Export Quicklinks 
 - Export Settings and Data 

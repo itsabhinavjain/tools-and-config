@@ -1,3 +1,4 @@
+## Notes 
 Scripts can be developed in :- 
 - Shell scripts (Bash)
 - Shell scripts (ZSH)

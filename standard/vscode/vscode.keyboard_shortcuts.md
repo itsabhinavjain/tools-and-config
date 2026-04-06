@@ -1,5 +1,4 @@
 ## Standard
-
 - Navigation 
 	- See the tree           : `Command + Shift + E` 
 	- Move around the tree   : `Arrows` 
@@ -22,9 +21,7 @@
 - Split editor               : `Command + \`
 
 
-
 ## Custom
-
 - Hiding and unhiding 
 	- Hide side-bar          : `Command + Shift + A`
 	- Hide the bottom bar    : `Command + Shift + S`

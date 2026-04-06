@@ -1,3 +1,12 @@
+## Notes
+- Plugins
+- Keyboard Shortcuts
+- VSCODE Settings 
+  - Global 
+  - Project Level 
+
+
+## Plugins 
 - Login using your github profile 
 - Plugins 
 	- atom-dark-theme

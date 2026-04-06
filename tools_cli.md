@@ -1,0 +1,108 @@
+## Notes 
+- On demand calls 
+- Installed 
+  - What scope 
+    - System, User, Project etc. 
+  - Where installed
+    - Common Folders
+      - `/Users/abhinavjain/.local/bin`
+      - `/opt/homebrew/bin`
+      - `/usr/local/bin`
+      - `/usr/bin`
+      - `/Applications`
+    - Folders for specific installations 
+    - Common Installations
+      - Javascript Executables 
+        - `npx `
+        - `npm list -g --depth=0`
+      - Python Executables 
+        - `uvx `
+      - Go Executables
+        - `/usr/local/go/bin`
+
+- Type of CLIs
+  - Standard 
+  - Custom 
+
+
+## Standard 
+### System 
+- zsh
+- bash 
+- neovim
+
+- yazi
+- ripgrep
+- fzf
+- fc
+- tree
+- fd
+
+- jq
+- bat  
+
+- homebrew
+- tmux
+- rsync
+
+- docker 
+- kubectl
+- minikube
+- supabase 
+
+- github 
+- aws 
+- gcloud
+- terraform 
+- ansible
+- vault
+- cloudflared 
+- ngrok
+
+- supabase 
+- mongo 
+- redis 
+- postgres 
+- duckdb
+
+### Others
+
+- coding agents 
+  - claude 
+  - gemini 
+  - codex 
+  - opencode 
+  - goose
+  - deepagent 
+
+- ollama 
+
+- Google Workspace 
+  - gogcli (https://github.com/steipete/gogcli)
+  - https://github.com/googleworkspace/cli
+
+- summarize (https://github.com/steipete/summarize)
+- notebookLM cli (https://github.com/jacob-bd/notebooklm-mcp-cli)
+- whatsapp - https://github.com/steipete/wacli
+
+- Youtube download - `yt-dlp` 
+- ffmpeg  
+
+- agent-browser (Vercel)
+- mcp-server-puppeteer
+
+- obsidian 
+
+- livekit-cli 
+- langgraph
+
+- langsmith 
+
+- graphviz
+- gts
+
+- hugo 
+- md2html 
+- pandoc
+
+## Custom 

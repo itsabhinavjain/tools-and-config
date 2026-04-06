@@ -1,6 +1,5 @@
 # Typescript Dependency List 
 
-
 ## Core & Configuration
 ```
 bun add typescript
