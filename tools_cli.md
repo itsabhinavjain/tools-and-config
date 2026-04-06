@@ -64,6 +64,7 @@
 - redis 
 - postgres 
 - duckdb
+- sqlite
 
 ### Others
 
