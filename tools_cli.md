@@ -24,6 +24,10 @@
   - Standard 
   - Custom 
 
+- You might want to install the various skills also in case they are available
+  - skills.md
+  - (Other documentation reference)
+  - (Option of using --help) 
 
 ## Standard 
 ### System 
@@ -74,7 +78,8 @@
   - codex 
   - opencode 
   - goose
-  - deepagent 
+  - deepagent
+  - hermes-agent
 
 - ollama 
 
@@ -85,12 +90,18 @@
 - summarize (https://github.com/steipete/summarize)
 - notebookLM cli (https://github.com/jacob-bd/notebooklm-mcp-cli)
 - whatsapp - https://github.com/steipete/wacli
+- markitdown 
 
 - Youtube download - `yt-dlp` 
 - ffmpeg  
 
-- agent-browser (Vercel)
-- mcp-server-puppeteer
+- Browser Automation 
+  - agent-browser (Vercel)
+  - mcp-server-puppeteer
+  - puppeteer-cli
+  - playwright-cli 
+  - firecrawl-cli
+  - (Install the chrome extension for claude as well) 
 
 - obsidian 
 
