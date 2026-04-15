@@ -1,0 +1,17 @@
+- iTerm2 
+  - homebrew
+  - ohmyzsh
+  - tmux
+- Raycast : Shortcuts and keybindings etc
+- Obsidian : Markdown based notes and journalling 
+- Excalidraw : Visual diagrams 
+- Development 
+  - VS Code : Primary code editor
+  - Sublime Text (Quick notes) 
+  - Antigravity
+  - Docker Desktop 
+  - Docker Sandboxes
+- Google Drive Sync 
+- Tailscale 
+- Claude  
+- Codex
