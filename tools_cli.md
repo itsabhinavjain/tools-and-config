@@ -35,6 +35,9 @@
 - bash 
 - neovim
 
+- ssh
+- mosh
+
 - yazi
 - ripgrep
 - fzf
