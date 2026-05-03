@@ -57,13 +57,15 @@
 - minikube
 - supabase 
 
-- github 
+- github (gh)
 - aws 
 - gcloud
 - terraform 
 - ansible
 - vault
-- cloudflared 
+- infisical
+- cloudflared
+- wrangler 
 - ngrok
 
 - supabase 
